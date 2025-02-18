@@ -20,18 +20,19 @@
 * @return the value of the operation
 */
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.lang.Math;
 
 
 class rpn {
-  public static void main(String args[]) {
+  public String main(String args[]) {
 
     // valid operands and operations
     Pattern operandPattern = Pattern.compile("-?\\d+(\\.\\d+)?");
     Pattern operationPattern = Pattern.compile("(\\+|-|\\*|\\/|a|s|m|d|add|sub|mul|div|cos)", Pattern.CASE_INSENSITIVE);
     Pattern twoArgumentOperationPattern = Pattern.compile("(\\+|-|\\*|\\/|a|s|m|d|add|sub|mul|div)", Pattern.CASE_INSENSITIVE);
+
+    double output = 0.0;
 
     // if no arguments, then print help
     if (args.length == 0) {
@@ -40,7 +41,6 @@ class rpn {
       printHelp("ERROR: Not enough operands and/or operators");
     } else {
       // variables used in the processing
-      double output = 0.0;
       boolean processingOperators = false;
       int numberOfArguments = args.length;
       int nextArgumentPosition = 0;
@@ -123,13 +123,15 @@ class rpn {
         printHelp("ERROR: No operators were present");
       }
     } // argument processing
+    return(Double.toString(output).replaceAll("\\.0*$", ""));
   } // end main
 
-  private static void printHelp() {
+  private String printHelp() {
     printHelp("");
+    return("");
   }
 
-  private static void printHelp(String message) {
+  private String printHelp(String message) {
     if (message.length() > 0) {
       System.out.println("\n" + message);
     }
@@ -144,7 +146,7 @@ class rpn {
     System.out.println("   output: 7");
     System.out.println("");
 
-    System.exit(0);
+    return("");
   }
 
 }
